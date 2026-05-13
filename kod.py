@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 def kripto_verileri():
     cevap = requests.get("https://api.coinlore.net/api/ticker/?id=90,80,48543,2710,58,2,1,5,4321")
     veriler = cevap.json()
-    return {coin['symbol'].upper(): float(coin['price_usd']) for coin in veriler}
+    return {coin['symbol']: float(coin['price_usd']) for coin in veriler}
 
 def tcmb_verileri():
     r = requests.get("https://www.tcmb.gov.tr/kurlar/today.xml")
@@ -17,7 +17,7 @@ def tcmb_verileri():
             birim = int(currency.find('Unit').text)
             fiyat_metni = currency.find('ForexBuying').text
             if fiyat_metni:
-                veriler[kod.upper()] = float(fiyat_metni) / birim
+                veriler[kod] = float(fiyat_metni) / birim
     return veriler
 
 st.set_page_config(page_title="Hesapci")
@@ -26,8 +26,7 @@ st.title("Hesapci")
 kripto = kripto_verileri()
 doviz = tcmb_verileri()
 
-# Arama kutusu tamamen temizlendi
-arama = st.text_input("", value="").upper()
+arama = st.text_input("", value="")
 
 if arama:
     if arama in kripto:
@@ -44,3 +43,5 @@ if arama:
             sonuc = float(miktar) / doviz[arama]
             st.write(f"Sonuc: {sonuc:.2f} {arama}")
             st.write(f"Kur: {doviz[arama]:.4f}")
+    else:
+        st.error("Gecersiz sembol veya hatali harf kullanimi.")
