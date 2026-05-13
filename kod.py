@@ -43,5 +43,3 @@ if arama:
             sonuc = float(miktar) / doviz[arama]
             st.write(f"Sonuc: {sonuc:.2f} {arama}")
             st.write(f"Kur: {doviz[arama]:.4f}")
-    else:
-        st.error
