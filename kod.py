@@ -44,4 +44,4 @@ if arama:
             st.write(f"Sonuc: {sonuc:.2f} {arama}")
             st.write(f"Kur: {doviz[arama]:.4f}")
     else:
-        st.error("Gecersiz sembol veya hatali harf kullanimi.")
+        st.error
